@@ -1,19 +1,20 @@
 {
-  "name": "prestashop/ps_contactinfo",
-  "description": "PrestaShop module ps_contactinfo",
-  "homepage": "https://github.com/PrestaShop/ps_contactinfo",
-  "license": "AFL - Academic Free License (AFL 3.0)",
-  "authors": [
-    {
-      "name": "PrestaShop SA",
-      "email": "contact@prestashop.com"
-    }
-  ],
-  "require": {
-    "php": ">=5.4"
-  },
-  "config": {
-    "preferred-install": "dist"
-  },
-  "type": "prestashop-module"
+    "name": "prestashop/ps_contactinfo",
+    "description": "PrestaShop module ps_contactinfo",
+    "homepage": "https://github.com/PrestaShop/ps_contactinfo",
+    "license": "AFL-3.0",
+    "authors": [
+        {
+            "name": "PrestaShop SA",
+            "email": "contact@prestashop.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "type": "prestashop-module",
+    "author": "PrestaShop"
 }
