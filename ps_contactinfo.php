@@ -60,8 +60,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
                 'displayNav1', // For Classic-inspired themes
                 'displayFooter',
                 'actionAdminStoresControllerUpdate_optionsAfter',
-            ])
-        ;
+            ]);
     }
 
     public function renderWidget($hookName = null, array $configuration = [])
