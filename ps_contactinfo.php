@@ -32,11 +32,11 @@ use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
 class Ps_Contactinfo extends Module implements WidgetInterface
 {
-    private $templates = array (
+    private $templates =  [
         'light' => 'nav.tpl',
         'rich' => 'ps_contactinfo-rich.tpl',
         'default' => 'ps_contactinfo.tpl',
-    );
+    ];
 
     public function __construct()
     {
@@ -47,9 +47,9 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         $this->bootstrap = true;
         parent::__construct();
 
-        $this->displayName = $this->getTranslator()->trans('Contact information', array(), 'Modules.Contactinfo.Admin');
-        $this->description = $this->getTranslator()->trans('Allows you to display additional information about your store\'s customer service.', array(), 'Modules.Contactinfo.Admin');
-        $this->ps_versions_compliancy = array('min' => '1.7.2.0', 'max' => _PS_VERSION_);
+        $this->displayName = $this->getTranslator()->trans('Contact information', [], 'Modules.Contactinfo.Admin');
+        $this->description = $this->getTranslator()->trans('Allows you to display additional information about your store\'s customer service.', [], 'Modules.Contactinfo.Admin');
+        $this->ps_versions_compliancy = ['min' => '1.7.2.0', 'max' => _PS_VERSION_];
     }
 
     public function install()
@@ -90,7 +90,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         $contact_infos = [
             'company' => Configuration::get('PS_SHOP_NAME'),
             'address' => [
-                'formatted' => AddressFormat::generateAddress($address, array(), '<br />'),
+                'formatted' => AddressFormat::generateAddress($address, [], '<br />'),
                 'address1' => $address->address1,
                 'address2' => $address->address2,
                 'postcode' => $address->postcode,
