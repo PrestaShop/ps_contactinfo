@@ -32,7 +32,7 @@ use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
 class Ps_Contactinfo extends Module implements WidgetInterface
 {
-    private $templates =  [
+    private $templates = [
         'light' => 'nav.tpl',
         'rich' => 'ps_contactinfo-rich.tpl',
         'default' => 'ps_contactinfo.tpl',
