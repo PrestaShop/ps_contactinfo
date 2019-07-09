@@ -48,17 +48,4 @@
         d='Modules.Contactinfo.Shop'
       }
     {/if}
-    {if $contact_infos.email}
-      <br>
-      {* First tag [1][/1] is for a HTML tag. *}
-      {l
-        s='Email: [1]%email%[/1]'
-        sprintf=[
-          '%email%' => $contact_infos.email,
-          '[1]' => '<a href="mailto:'|cat:$contact_infos.email|cat:'">',
-          '[/1]' => '</a>'
-        ]
-        d='Modules.Contactinfo.Shop'
-      }
-    {/if}
 </div>
