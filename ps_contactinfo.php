@@ -55,13 +55,13 @@ class Ps_Contactinfo extends Module implements WidgetInterface
     public function install()
     {
         return parent::install()
+            && Configuration::updateValue('PS_CONTACT_INFO_DISPLAY_EMAIL', 1)
             && $this->registerHook([
                 'displayNav', // Standard hook
                 'displayNav1', // For Classic-inspired themes
                 'displayFooter',
                 'actionAdminStoresControllerUpdate_optionsAfter',
-            ])
-        ;
+            ]);
     }
 
     public function renderWidget($hookName = null, array $configuration = [])
@@ -105,6 +105,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
 
         return [
             'contact_infos' => $contact_infos,
+            'display_email' => Configuration::get('PS_CONTACT_INFO_DISPLAY_EMAIL'),
         ];
     }
 
@@ -115,5 +116,60 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         }
 
         return true;
+    }
+
+    public function getContent()
+    {
+        $output = '';
+
+        if (Tools::isSubmit('submitContactInfo')) {
+            Configuration::updateValue('PS_CONTACT_INFO_DISPLAY_EMAIL', (int)Tools::getValue('PS_CONTACT_INFO_DISPLAY_EMAIL'));
+
+            foreach ($this->templates as $template) {
+                $this->_clearCache($template);
+            }
+
+            $output .= $this->displayConfirmation($this->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
+
+            Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules', true).'&conf=6&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name);
+        }
+
+        $helper = new HelperForm();
+        $helper->submit_action = 'submitContactInfo';
+
+        $field = array(
+            'type' => 'switch',
+            'label' => $this->trans('Display email address', array(), 'Admin.Global'),
+            'name' => 'PS_CONTACT_INFO_DISPLAY_EMAIL',
+            'values' => array(
+                array(
+                    'id' => 'active_on',
+                    'value' => 1,
+                    'label' => $this->trans('yes', array(), 'Admin.Global')
+                ),
+                array(
+                    'id' => 'active_off',
+                    'value' => 0,
+                    'label' => $this->trans('no', array(), 'Admin.Global')
+                )
+            )
+        );
+
+        $helper->fields_value['PS_CONTACT_INFO_DISPLAY_EMAIL'] = Configuration::get('PS_CONTACT_INFO_DISPLAY_EMAIL');
+
+        return $output.$helper->generateForm(array(
+            array(
+                'form' => array(
+                    'legend' => array(
+                        'title' => $this->displayName,
+                        'icon' => 'icon-share'
+                    ),
+                    'input' => [$field],
+                    'submit' => array(
+                        'title' => $this->trans('Save', array(), 'Admin.Actions')
+                    )
+                )
+            )
+        ));
     }
 }

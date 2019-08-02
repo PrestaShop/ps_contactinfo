@@ -51,4 +51,17 @@
       d='Modules.Contactinfo.Shop'
     }
   {/if}
+  {if $contact_infos.email && $display_email}
+    <br>
+    {* First tag [1][/1] is for a HTML tag. *}
+    {l
+      s='Email us: [1]%email%[/1]'
+      sprintf=[
+        '[1]' => '<span>',
+        '[/1]' => '</span>',
+        '%email%' => $contact_infos.email
+      ]
+      d='Modules.Contactinfo.Shop'
+    }
+  {/if}
 </div>
