@@ -139,18 +139,18 @@ class Ps_Contactinfo extends Module implements WidgetInterface
 
         $field = array(
             'type' => 'switch',
-            'label' => $this->trans('Display email address', array(), 'Admin.Global'),
+            'label' => $this->trans('Display email address', array(), 'Admin.Actions'),
             'name' => 'PS_CONTACT_INFO_DISPLAY_EMAIL',
             'values' => array(
                 array(
                     'id' => 'active_on',
                     'value' => 1,
-                    'label' => $this->trans('yes', array(), 'Admin.Global')
+                    'label' => $this->trans('Yes', array(), 'Admin.Global')
                 ),
                 array(
                     'id' => 'active_off',
                     'value' => 0,
-                    'label' => $this->trans('no', array(), 'Admin.Global')
+                    'label' => $this->trans('No', array(), 'Admin.Global')
                 )
             )
         );
