@@ -120,7 +120,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
 
     public function getContent()
     {
-        $output = '';
+        $output = [];
 
         if (Tools::isSubmit('submitContactInfo')) {
             Configuration::updateValue('PS_CONTACT_INFO_DISPLAY_EMAIL', (int)Tools::getValue('PS_CONTACT_INFO_DISPLAY_EMAIL'));
@@ -129,7 +129,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
                 $this->_clearCache($template);
             }
 
-            $output .= $this->displayConfirmation($this->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
+            $output[] = $this->displayConfirmation($this->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
 
             Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules', true).'&conf=6&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name);
         }
@@ -157,7 +157,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
 
         $helper->fields_value['PS_CONTACT_INFO_DISPLAY_EMAIL'] = Configuration::get('PS_CONTACT_INFO_DISPLAY_EMAIL');
 
-        return $output.$helper->generateForm(array(
+        $output[] = $helper->generateForm(array(
             array(
                 'form' => array(
                     'legend' => array(
@@ -171,5 +171,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
                 )
             )
         ));
+
+        return implode($output);
     }
 }
