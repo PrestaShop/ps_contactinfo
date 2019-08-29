@@ -141,6 +141,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
             'type' => 'switch',
             'label' => $this->trans('Display email address', array(), 'Admin.Actions'),
             'name' => 'PS_CONTACT_INFO_DISPLAY_EMAIL',
+            'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
             'values' => array(
                 array(
                     'id' => 'active_on',
