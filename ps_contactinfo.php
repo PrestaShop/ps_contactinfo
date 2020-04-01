@@ -98,6 +98,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
                 'state' => (new State($address->id_state))->name[$this->context->language->id],
                 'country' => (new Country($address->id_country))->name[$this->context->language->id],
             ],
+            'details' => Configuration::get('PS_SHOP_DETAILS'),
             'phone' => Configuration::get('PS_SHOP_PHONE'),
             'fax' => Configuration::get('PS_SHOP_FAX'),
             'email' => Configuration::get('PS_SHOP_EMAIL'),
