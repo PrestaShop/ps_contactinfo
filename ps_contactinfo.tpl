@@ -26,6 +26,7 @@
 <div class="block-contact">
 	<h4>{l s='Contact us' d='Shop.Theme.Global'}</h4>
     {$contact_infos.address.formatted nofilter}
+    {$contact_infos.details}
     {if $contact_infos.phone}
       <br>
       {* First tag [1][/1] is for a HTML tag. *}
