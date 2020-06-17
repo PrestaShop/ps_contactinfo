@@ -65,6 +65,17 @@ class Ps_Contactinfo extends Module implements WidgetInterface
             ]);
     }
 
+    public function uninstall()
+    {
+        if (!parent::uninstall() ||
+            !Configuration::deleteByName('PS_CONTACT_INFO_DISPLAY_EMAIL') ||
+            !Configuration::deleteByName('PS_CONTACT_INFO_DISPLAY_PHONE')) {
+            return false;
+        }
+        return true;
+    }
+
+
     public function renderWidget($hookName = null, array $configuration = [])
     {
         if ($hookName == null && isset($configuration['hook'])) {
