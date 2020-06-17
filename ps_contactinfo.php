@@ -56,6 +56,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
     {
         return parent::install()
             && Configuration::updateValue('PS_CONTACT_INFO_DISPLAY_EMAIL', 1)
+            && Configuration::updateValue('PS_CONTACT_INFO_DISPLAY_PHONE', 1)
             && $this->registerHook([
                 'displayNav', // Standard hook
                 'displayNav1', // For Classic-inspired themes
@@ -87,6 +88,9 @@ class Ps_Contactinfo extends Module implements WidgetInterface
     {
         $address = $this->context->shop->getAddress();
 
+        $is_state_multilang = !empty(State::$definition['multilang']);
+        $state_name = (new State($address->id_state))->name;
+
         $contact_infos = [
             'company' => Configuration::get('PS_SHOP_NAME'),
             'address' => [
@@ -95,7 +99,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
                 'address2' => $address->address2,
                 'postcode' => $address->postcode,
                 'city' => $address->city,
-                'state' => (new State($address->id_state))->name[$this->context->language->id],
+                'state' => $is_state_multilang ? $state_name[$this->context->language->id] : $state_name,
                 'country' => (new Country($address->id_country))->name[$this->context->language->id],
             ],
             'phone' => Configuration::get('PS_SHOP_PHONE'),
@@ -106,6 +110,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         return [
             'contact_infos' => $contact_infos,
             'display_email' => Configuration::get('PS_CONTACT_INFO_DISPLAY_EMAIL'),
+            'display_phone' => Configuration::get('PS_CONTACT_INFO_DISPLAY_PHONE'),
         ];
     }
 
@@ -124,6 +129,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
 
         if (Tools::isSubmit('submitContactInfo')) {
             Configuration::updateValue('PS_CONTACT_INFO_DISPLAY_EMAIL', (int)Tools::getValue('PS_CONTACT_INFO_DISPLAY_EMAIL'));
+            Configuration::updateValue('PS_CONTACT_INFO_DISPLAY_PHONE', (int)Tools::getValue('PS_CONTACT_INFO_DISPLAY_PHONE'));
 
             foreach ($this->templates as $template) {
                 $this->_clearCache($template);
@@ -138,25 +144,45 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         $helper->submit_action = 'submitContactInfo';
 
         $field = array(
-            'type' => 'switch',
-            'label' => $this->trans('Display email address', array(), 'Admin.Actions'),
-            'name' => 'PS_CONTACT_INFO_DISPLAY_EMAIL',
-            'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
-            'values' => array(
-                array(
-                    'id' => 'active_on',
-                    'value' => 1,
-                    'label' => $this->trans('Yes', array(), 'Admin.Global')
-                ),
-                array(
-                    'id' => 'active_off',
-                    'value' => 0,
-                    'label' => $this->trans('No', array(), 'Admin.Global')
+            array(
+                'type' => 'switch',
+                'label' => $this->trans('Display email address', array(), 'Admin.Actions'),
+                'name' => 'PS_CONTACT_INFO_DISPLAY_EMAIL',
+                'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
+                'values' => array(
+                    array(
+                        'id' => 'active_on',
+                        'value' => 1,
+                        'label' => $this->trans('Yes', array(), 'Admin.Global')
+                    ),
+                    array(
+                        'id' => 'active_off',
+                        'value' => 0,
+                        'label' => $this->trans('No', array(), 'Admin.Global')
+                    )
+                )
+            ),
+            array(
+                'type' => 'switch',
+                'label' => $this->trans('Display phone number', array(), 'Admin.Actions'),
+                'name' => 'PS_CONTACT_INFO_DISPLAY_PHONE',
+                'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
+                'values' => array(
+                    array(
+                        'id' => 'active_on',
+                        'value' => 1,
+                        'label' => $this->trans('Yes', array(), 'Admin.Global')
+                    ),
+                    array(
+                        'id' => 'active_off',
+                        'value' => 0,
+                        'label' => $this->trans('No', array(), 'Admin.Global')
+                    )
                 )
             )
         );
 
-        $helper->fields_value['PS_CONTACT_INFO_DISPLAY_EMAIL'] = Configuration::get('PS_CONTACT_INFO_DISPLAY_EMAIL');
+        $helper->fields_value = $this->getConfigFieldsValues();
 
         $output[] = $helper->generateForm(array(
             array(
@@ -174,5 +200,13 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         ));
 
         return implode($output);
+    }
+
+    public function getConfigFieldsValues()
+    {
+        return array(
+            'PS_CONTACT_INFO_DISPLAY_EMAIL' => Configuration::get('PS_CONTACT_INFO_DISPLAY_EMAIL'),
+            'PS_CONTACT_INFO_DISPLAY_PHONE' => Configuration::get('PS_CONTACT_INFO_DISPLAY_PHONE'),
+        );
     }
 }
