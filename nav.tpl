@@ -28,13 +28,13 @@
     {if $contact_infos.phone}
       {* [1][/1] is for a HTML tag. *}
       {l
-      s='Call us: [1]%phone%[/1]'
-      sprintf=[
-      '[1]' => '<span>',
-      '[/1]' => '</span>',
-      '%phone%' => $contact_infos.phone
-      ]
-      d='Modules.Contactinfo.Shop'
+        s='Call us: [1]%phone%[/1]'
+        sprintf=[
+          '[1]' => '<a href="tel:'|cat:$contact_infos.phone|cat:'">',
+          '[/1]' => '</a>',
+          '%phone%' => $contact_infos.phone
+        ]
+        d='Modules.Contactinfo.Shop'
       }
     {else}
       <a href="{$urls.pages.contact}">{l s='Contact us' d='Modules.Contactinfo.Shop'}</a>
