@@ -154,41 +154,39 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         $helper = new HelperForm();
         $helper->submit_action = 'submitContactInfo';
 
-        $field = array(
-            array(
-                'type' => 'switch',
-                'label' => $this->trans('Display email address', array(), 'Admin.Actions'),
-                'name' => 'PS_CONTACT_INFO_DISPLAY_EMAIL',
-                'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
-                'values' => array(
-                    array(
-                        'id' => 'active_on',
-                        'value' => 1,
-                        'label' => $this->trans('Yes', array(), 'Admin.Global')
-                    ),
-                    array(
-                        'id' => 'active_off',
-                        'value' => 0,
-                        'label' => $this->trans('No', array(), 'Admin.Global')
-                    )
+        $fields[] = array(
+            'type' => 'switch',
+            'label' => $this->trans('Display email address', array(), 'Admin.Actions'),
+            'name' => 'PS_CONTACT_INFO_DISPLAY_EMAIL',
+            'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
+            'values' => array(
+                array(
+                    'id' => 'active_on',
+                    'value' => 1,
+                    'label' => $this->trans('Yes', array(), 'Admin.Global')
+                ),
+                array(
+                    'id' => 'active_off',
+                    'value' => 0,
+                    'label' => $this->trans('No', array(), 'Admin.Global')
                 )
-            ),
-            array(
-                'type' => 'switch',
-                'label' => $this->trans('Display phone number', array(), 'Admin.Actions'),
-                'name' => 'PS_CONTACT_INFO_DISPLAY_PHONE',
-                'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
-                'values' => array(
-                    array(
-                        'id' => 'active_on',
-                        'value' => 1,
-                        'label' => $this->trans('Yes', array(), 'Admin.Global')
-                    ),
-                    array(
-                        'id' => 'active_off',
-                        'value' => 0,
-                        'label' => $this->trans('No', array(), 'Admin.Global')
-                    )
+            )
+        );
+         $fields[] = array(
+            'type' => 'switch',
+            'label' => $this->trans('Display phone number', array(), 'Admin.Actions'),
+            'name' => 'PS_CONTACT_INFO_DISPLAY_PHONE',
+            'desc' => $this->trans('Your theme needs to be compatible with this feature', array(), 'Modules.Contactinfo.Admin'),
+            'values' => array(
+                array(
+                    'id' => 'active_on',
+                    'value' => 1,
+                    'label' => $this->trans('Yes', array(), 'Admin.Global')
+                ),
+                array(
+                    'id' => 'active_off',
+                    'value' => 0,
+                    'label' => $this->trans('No', array(), 'Admin.Global')
                 )
             )
         );
@@ -202,7 +200,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
                         'title' => $this->displayName,
                         'icon' => 'icon-share'
                     ),
-                    'input' => [$field],
+                    'input' => $fields,
                     'submit' => array(
                         'title' => $this->trans('Save', array(), 'Admin.Actions')
                     )
