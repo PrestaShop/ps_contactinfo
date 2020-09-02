@@ -69,7 +69,8 @@ class Ps_Contactinfo extends Module implements WidgetInterface
     {
         if (!parent::uninstall() ||
             !Configuration::deleteByName('PS_CONTACT_INFO_DISPLAY_EMAIL') ||
-            !Configuration::deleteByName('PS_CONTACT_INFO_DISPLAY_PHONE')) {
+            !Configuration::deleteByName('PS_CONTACT_INFO_DISPLAY_PHONE')
+        ) {
             return false;
         }
         return true;
