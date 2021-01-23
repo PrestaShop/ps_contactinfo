@@ -130,8 +130,6 @@ class Ps_Contactinfo extends Module implements WidgetInterface
             }
 
             $output[] = $this->displayConfirmation($this->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
-
-            Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules', true).'&conf=6&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name);
         }
 
         $helper = new HelperForm();
