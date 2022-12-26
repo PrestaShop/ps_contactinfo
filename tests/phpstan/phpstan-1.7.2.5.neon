@@ -1,0 +1,7 @@
+includes:
+	- %currentWorkingDirectory%/tests/phpstan/phpstan.neon
+
+parameters:
+	ignoreErrors:
+		- '#Call to method assign\(\) on an unknown class Smarty_Data.#'
+		- '#Parameter \#1 \$hook_name of method ModuleCore::registerHook\(\) expects string, array<int, string> given.#'

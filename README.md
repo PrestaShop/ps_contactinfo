@@ -2,7 +2,7 @@
 
 ## About
 
-Allows you to display additional information about your store's customer service.
+Let your customers know how to reach you, display contact information on your store.
 
 ## Reporting issues
 
