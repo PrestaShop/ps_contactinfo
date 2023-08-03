@@ -12,6 +12,13 @@ PrestaShop: `1.7.2.0` or later
 
 You can report issues with this module in the main PrestaShop repository. [Click here to report an issue][report-issue]. 
 
+## How to test
+
+Link to specs : https://docs.prestashop-project.org/functional-documentation/functional-documentation/ux-ui/back-office/improve/modules/contact-information
+
+Contact info block is displayed in footer when enabled. Configuration allows to display or not the email address.
+When disabled, Store Information block is hidden.
+
 ## Multistore compatibility
 
 This module is compatible with the multistore :heavy_check_mark: <br/>
