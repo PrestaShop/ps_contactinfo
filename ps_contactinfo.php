@@ -88,6 +88,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
     public function getWidgetVariables($hookName = null, array $configuration = [])
     {
         $address = $this->context->shop->getAddress();
+        $formattedAddress = AddressFormat::generateAddress($address, [], '<br />');
 
         $is_state_multilang = !empty(State::$definition['multilang']);
         $state_name = (new State($address->id_state))->name;
@@ -95,7 +96,7 @@ class Ps_Contactinfo extends Module implements WidgetInterface
         $contact_infos = [
             'company' => Configuration::get('PS_SHOP_NAME'),
             'address' => [
-                'formatted' => AddressFormat::generateAddress($address, [], '<br />'),
+                'formatted' => Validate::isCleanHtml($formattedAddress) ? $formattedAddress : '',
                 'address1' => $address->address1,
                 'address2' => $address->address2,
                 'postcode' => $address->postcode,
